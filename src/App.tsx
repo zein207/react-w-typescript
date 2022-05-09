@@ -1,4 +1,5 @@
 import { BasicTypes } from "./typescript/BasicTypes";
+import { LiteralObjects } from "./typescript/LiteralObjects";
 
 const App = () => {
 
@@ -6,7 +7,8 @@ const App = () => {
     <div className='mt-2'>
       <h1>Introduction TS React</h1>
       <hr />
-      <BasicTypes />
+      {/* <BasicTypes /> */}
+      <LiteralObjects />
     </div>
   )
 }
