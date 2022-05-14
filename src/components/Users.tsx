@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { reqResApi } from '../api/reqRes';
+import { ReqResList, User } from '../interfaces/reqRes';
 
 export const Users = () => {
 
+    const [users, setUsers] = useState<User[]>([]);
+
     useEffect(() => {
 
-        reqResApi.get('/users')
+        reqResApi.get<ReqResList>('/users')
             .then( resp => {
                 console.log(resp.data.data)
             })
