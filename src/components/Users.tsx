@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { reqResApi } from '../api/reqRes';
 import { ReqResList, User } from '../interfaces/reqRes';
 
@@ -6,15 +6,32 @@ export const Users = () => {
 
     const [users, setUsers] = useState<User[]>([]);
 
+    const pageRef = useRef(1);
+
     useEffect(() => {
 
-        reqResApi.get<ReqResList>('/users')
-            .then( resp => {
-                setUsers(resp.data.data)
-            })
-            .catch( err => console.log( err ))
-
+        loadUsers();
     }, [])
+    
+    const loadUsers = async() => {
+
+        const resp = await reqResApi.get<ReqResList>('/users', {
+            params: {
+                page: pageRef.current
+            }
+        });
+
+        if ( resp.data.data.length > 0 ) {
+            setUsers( resp.data.data );
+            console.log(pageRef.current)
+
+            pageRef.current ++;
+        } else {
+            console.log(pageRef.current)
+            alert('There is no more users')
+        };
+
+    }
 
     const renderItem = ( user: User ) => {
 
@@ -59,6 +76,7 @@ export const Users = () => {
             </table>
 
             <button
+                onClick={ loadUsers }
                 className='btn btn-primary'
             >
                 Next
