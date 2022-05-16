@@ -3,7 +3,7 @@ import { useUsers } from '../hooks/useUsers';
 
 export const Users = () => {
 
-    const { users, loadUsers } = useUsers();
+    const { users, nextPage, previousPage } = useUsers();
 
     const renderItem = ( user: User ) => {
 
@@ -48,14 +48,14 @@ export const Users = () => {
             </table>
 
             <button
-                onClick={ loadUsers }
+                onClick={ previousPage }
                 className='btn btn-primary mr-3'
             >
                 Previous
             </button>
 
             <button
-                onClick={ loadUsers }
+                onClick={ nextPage }
                 className='btn btn-primary'
             >
                 Next

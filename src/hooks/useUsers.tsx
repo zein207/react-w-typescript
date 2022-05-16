@@ -11,6 +11,7 @@ export const useUsers = () => {
     useEffect(() => {
 
         loadUsers();
+
     }, [])
     
     const loadUsers = async() => {
@@ -23,17 +24,31 @@ export const useUsers = () => {
 
         if ( resp.data.data.length > 0 ) {
             setUsers( resp.data.data );
-            pageRef.current ++;
-
+            
         } else {
-            console.log(pageRef.current);
+            pageRef.current --;
             alert('There is no more users');
         };
-
     }
+    
+    const nextPage = () => {
+        
+        pageRef.current ++;
+        loadUsers();
+
+    };
+
+    const previousPage = () => {
+
+        if( pageRef.current > 1 ) {
+            pageRef.current --;
+            loadUsers();
+        }
+    };
 
     return {
         users,
-        loadUsers
+        nextPage,
+        previousPage
     }
 }
